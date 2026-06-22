@@ -8,7 +8,6 @@ The following files were successfully processed:
 
 * Axis_Bluechip.csv
 * HDFC_Top100.csv
-* hdfc_top100_nav.csv
 * ICICI_Bluechip.csv
 * Kotak_Bluechip.csv
 * Nippon_LargeCap.csv
