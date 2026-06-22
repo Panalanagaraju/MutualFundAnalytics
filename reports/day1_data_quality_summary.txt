@@ -1,0 +1,34 @@
+Day 1 Data Quality Summary
+
+As part of the first day of the Mutual Fund Analytics project, I set up the project structure, installed the required Python libraries, connected the project to GitHub, and collected mutual fund NAV data using the MFAPI service.
+
+The NAV data was fetched for six mutual fund schemes and stored as CSV files inside the data/raw folder. After generating the CSV files, I used Pandas to load each dataset and inspect its structure, data types, sample records, missing values, and duplicate records.
+
+The following files were successfully processed:
+
+* Axis_Bluechip.csv
+* HDFC_Top100.csv
+* hdfc_top100_nav.csv
+* ICICI_Bluechip.csv
+* Kotak_Bluechip.csv
+* Nippon_LargeCap.csv
+* SBI_Bluechip.csv
+
+The datasets contained historical NAV information along with scheme code and scheme name details. All files were loaded without any errors.
+
+During the inspection, I observed that every dataset contained four columns: date, nav, scheme_code, and scheme_name. The NAV column was already stored as a numeric value (float64), while the scheme code was stored as an integer. The date column was stored as a string and will need to be converted to datetime format before performing time-series analysis.
+
+A missing value check was performed on all datasets. No missing values were found in any column. This indicates that the downloaded data is complete and suitable for further processing.
+
+A duplicate record check was also performed. No duplicate rows were identified in any of the CSV files. This reduces the need for additional cleaning at this stage.
+
+One observation made during the analysis was that some scheme names returned by the API did not appear to match the expected fund names associated with the scheme labels used in the assignment. This should be verified later using official AMFI scheme information before proceeding with advanced analysis.
+
+Another observation is that both HDFC_Top100.csv and hdfc_top100_nav.csv contain the same number of records and appear to represent the same dataset. One of these files may be removed in a later cleanup step to avoid redundancy.
+
+Overall, the data ingestion process was completed successfully. The datasets were downloaded, converted to CSV format, loaded into Pandas, and checked for basic quality issues. No major data quality problems were identified during the initial assessment. Further validation will be carried out once additional datasets such as fund_master and nav_history become available.
+
+Prepared by:
+Panala Nagaraju
+Mutual Fund Analytics Project
+Day 1
