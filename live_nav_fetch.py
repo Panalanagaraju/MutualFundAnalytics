@@ -2,20 +2,32 @@ import requests
 import pandas as pd
 import os
 
-schemes = {
-    "HDFC_Top100":125497,
-    "SBI_Bluechip":119551,
-    "ICICI_Bluechip":120503,
-    "Nippon_LargeCap":118632,
-    "Axis_Bluechip":119092,
-    "Kotak_Bluechip":120841
+# ==================================
+# OUTPUT DIRECTORY
+# ==================================
+
+OUTPUT_DIR = "data/raw"
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+# ==================================
+# FUND LIST
+# ==================================
+
+funds = {
+    "sbi_bluechip": 119551,
+    "icici_bluechip": 120503,
+    "nippon_large_cap": 118632,
+    "axis_bluechip": 119092,
+    "kotak_bluechip": 120841
 }
 
-os.makedirs("data/raw", exist_ok=True)
+# ==================================
+# FETCH DATA
+# ==================================
 
-for scheme_name, scheme_code in schemes.items():
+for fund_name, scheme_code in funds.items():
 
-    print(f"Fetching {scheme_name}")
+    print(f"\nDownloading {fund_name}")
 
     url = f"https://api.mfapi.in/mf/{scheme_code}"
 
@@ -27,14 +39,22 @@ for scheme_name, scheme_code in schemes.items():
 
         nav_df = pd.DataFrame(data["data"])
 
-        nav_df["scheme_code"] = scheme_code
-        nav_df["scheme_name"] = data["meta"]["scheme_name"]
+        file_path = os.path.join(
+            OUTPUT_DIR,
+            f"{fund_name}_nav.csv"
+        )
 
-        file_name = f"data/raw/{scheme_name}.csv"
+        nav_df.to_csv(
+            file_path,
+            index=False
+        )
 
-        nav_df.to_csv(file_name, index=False)
-
-        print(f"Saved: {file_name}")
+        print(f"Saved : {file_path}")
 
     else:
-        print(f"Failed: {scheme_name}")
+
+        print(
+            f"Failed for {fund_name}"
+        )
+
+print("\nDownload Completed")

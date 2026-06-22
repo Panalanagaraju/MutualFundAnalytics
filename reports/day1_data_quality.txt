@@ -1,0 +1,70 @@
+
+FILE : 01_fund_master.csv
+----------------------------------------
+Rows, Columns : (40, 15)
+Missing Values : 0
+Duplicate Rows : 0
+
+
+FILE : 02_nav_history.csv
+----------------------------------------
+Rows, Columns : (46000, 3)
+Missing Values : 0
+Duplicate Rows : 0
+
+
+FILE : 03_aum_by_fund_house.csv
+----------------------------------------
+Rows, Columns : (90, 5)
+Missing Values : 0
+Duplicate Rows : 0
+
+
+FILE : 04_monthly_sip_inflows.csv
+----------------------------------------
+Rows, Columns : (48, 6)
+Missing Values : 12
+Duplicate Rows : 0
+
+
+FILE : 05_category_inflows.csv
+----------------------------------------
+Rows, Columns : (144, 3)
+Missing Values : 0
+Duplicate Rows : 0
+
+
+FILE : 06_industry_folio_count.csv
+----------------------------------------
+Rows, Columns : (21, 6)
+Missing Values : 0
+Duplicate Rows : 0
+
+
+FILE : 07_scheme_performance.csv
+----------------------------------------
+Rows, Columns : (40, 19)
+Missing Values : 0
+Duplicate Rows : 0
+
+
+FILE : 08_investor_transactions.csv
+----------------------------------------
+Rows, Columns : (32778, 13)
+Missing Values : 0
+Duplicate Rows : 0
+
+
+FILE : 09_portfolio_holdings.csv
+----------------------------------------
+Rows, Columns : (322, 8)
+Missing Values : 0
+Duplicate Rows : 0
+
+
+FILE : 10_benchmark_indices.csv
+----------------------------------------
+Rows, Columns : (8050, 3)
+Missing Values : 0
+Duplicate Rows : 0
+
