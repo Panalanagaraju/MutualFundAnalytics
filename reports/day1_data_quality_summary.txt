@@ -1,42 +1,152 @@
-Day 1 Data Quality Summary
+ Day 1 Report – Data Ingestion and Initial Data Validation
 
-Today, I completed the initial data ingestion task for the Mutual Fund Analytics project. After setting up the project structure and installing the required Python libraries, I fetched mutual fund NAV data from the MFAPI service and stored the data as CSV files in the data/raw folder.
+ Mutual Fund Analytics Platform
 
-The following CSV files were loaded and analyzed:
+ Bluestock Fintech Capstone Project
 
-* Axis_Bluechip.csv
-* HDFC_Top100.csv
-* ICICI_Bluechip.csv
-* Kotak_Bluechip.csv
-* Nippon_LargeCap.csv
-* SBI_Bluechip.csv
+Submitted by: Panala Nagaraju
+Date: 22 June 2026
 
-I used Pandas to load each file and checked the shape, data types, sample records, missing values, and duplicate records.
 
-The number of records in each dataset is shown below:
+# Introduction
 
-* Axis_Bluechip.csv – 3,579 rows and 4 columns
-* HDFC_Top100.csv – 3,105 rows and 4 columns
-* ICICI_Bluechip.csv – 3,321 rows and 4 columns
-* Kotak_Bluechip.csv – 3,315 rows and 4 columns
-* Nippon_LargeCap.csv – 3,312 rows and 4 columns
-* SBI_Bluechip.csv – 3,250 rows and 4 columns
+The first day of the project was focused on setting up the development environment and understanding the datasets that will be used throughout the Mutual Fund Analytics Platform. The primary goal was to load all available datasets, verify their quality, understand their structure, and establish a reliable data ingestion process. In addition, I integrated live NAV data using the mfapi.in API and prepared the project repository for future ETL and analytics tasks.
 
-The datasets contain four common fields: date, nav, scheme_code, and scheme_name. The NAV values are stored as floating-point numbers, while scheme codes are stored as integers. The date column is currently stored as text and will need to be converted to datetime format before carrying out time-series analysis.
 
-A missing value check was performed on all datasets. No missing values were found in any of the columns, which indicates that the downloaded data is complete and suitable for further processing.
 
-I also checked for duplicate records in every CSV file. No duplicate rows were detected. This confirms that the data has been stored correctly and does not contain repeated entries.
+# Project Setup
 
-While reviewing the sample records, I noticed that some scheme names returned by the API did not exactly match the names expected from the file names. For example, HDFC_Top100.csv contains records for "SBI Small Cap Fund - Direct Plan - Growth", and SBI_Bluechip.csv contains records related to another mutual fund scheme. This observation suggests that the scheme codes should be validated against official AMFI records before proceeding with detailed analysis.
+I started by creating the project folder structure to organize raw data, processed data, reports, notebooks, SQL scripts, and dashboard files. A Python virtual environment was created to manage project dependencies separately from the system environment.
 
-Overall, the data ingestion process was completed successfully. All six CSV files were loaded without errors, no missing values were found, and no duplicate records were detected. The datasets are now ready for preprocessing, validation, and exploratory analysis in the next phase of the project.
+The required libraries such as Pandas, NumPy, Matplotlib, Seaborn, Plotly, SQLAlchemy, Requests, SciPy, and Jupyter Notebook were installed successfully. After the environment setup, I created the Python scripts required for data ingestion and live NAV extraction.
 
-Prepared By:
-Panala Nagaraju
 
-Project:
-Mutual Fund Analytics
 
-Date:
-Day -1 
+# Dataset Exploration
+
+The project includes ten datasets covering different aspects of the mutual fund industry, including fund information, NAV history, AUM, SIP inflows, portfolio holdings, benchmark indices, and investor transactions.
+
+After loading all datasets using Pandas, I examined their structure, data types, sample records, and overall quality.
+
+# Dataset Summary
+
+| Dataset               |   Rows | Columns |
+| --------------------- | -----: | ------: |
+| Fund Master           |     40 |      15 |
+| NAV History           | 46,000 |       3 |
+| AUM by Fund House     |     90 |       5 |
+| Monthly SIP Inflows   |     48 |       6 |
+| Category Inflows      |    144 |       3 |
+| Industry Folio Count  |     21 |       6 |
+| Scheme Performance    |     40 |      19 |
+| Investor Transactions | 32,778 |      13 |
+| Portfolio Holdings    |    322 |       8 |
+| Benchmark Indices     |  8,050 |       3 |
+
+In total, more than 86,000 records were successfully loaded into the project environment.
+
+
+
+# Understanding the Data
+
+The Fund Master dataset acts as the foundation of the project because it contains scheme-level information such as AMFI codes, fund houses, categories, expense ratios, risk categories, and fund managers.
+
+The NAV History dataset contains daily NAV values for all schemes and will be used later for return calculations, performance analysis, and risk measurement.
+
+The AUM dataset provides information about the assets managed by different fund houses and will help in market share analysis.
+
+The SIP dataset contains monthly SIP inflows and active SIP account information, which will be useful for understanding investment trends and investor participation.
+
+The Investor Transactions dataset is particularly interesting because it contains demographic details such as state, city, age group, gender, and income level. This dataset will support the investor behaviour and demographic analysis planned for later stages of the project.
+
+The Portfolio Holdings dataset provides stock-level holdings information that can be used to analyze sector allocation and portfolio concentration.
+
+Finally, the Benchmark dataset contains historical index values that will later be used to calculate performance metrics such as Alpha, Beta, Sharpe Ratio, and tracking error.
+
+# Data Quality Validation
+
+One of the major objectives of Day 1 was to ensure that the datasets were clean and reliable.
+
+I performed several validation checks, including:
+
+* Missing value analysis
+* Duplicate record detection
+* Data type verification
+* File integrity checks
+
+The results were encouraging. No duplicate records were found in any dataset, and all files loaded successfully without errors.
+
+The only issue identified was in the Monthly SIP Inflows dataset, where twelve values were missing in the Year-over-Year Growth column. After reviewing the data, this appears to be expected because YoY growth cannot be calculated during the initial months when previous-year values are unavailable.
+
+Therefore, these missing values are considered valid and do not affect the quality of the dataset.
+
+Overall, the datasets were found to be highly clean and well-structured.
+
+
+# Live NAV Data Integration
+
+After validating the provided datasets, I implemented live data extraction using the mfapi.in API.
+
+The API integration was successful, and I was able to retrieve NAV history for the following schemes:
+
+* SBI Bluechip Fund
+* ICICI Bluechip Fund
+* Nippon Large Cap Fund
+* Axis Bluechip Fund
+* Kotak Bluechip Fund
+
+The downloaded NAV data was converted into CSV format and stored in the raw data folder for future processing.
+
+This step confirmed that the project can work with both static datasets and live external data sources.
+
+
+
+# Understanding AMFI Scheme Codes
+
+During the analysis, I also examined the AMFI scheme codes available in the Fund Master dataset.
+
+I observed that every mutual fund scheme is assigned a unique AMFI code, which serves as a common identifier across datasets and API responses. These codes will be extremely important during database design because they will act as the primary linking field between different tables.
+
+This understanding will help significantly when building the star schema and ETL pipeline in the next phase of the project.
+
+
+# Git and Version Control
+
+Once all Day 1 activities were completed, the project was added to Git version control.
+
+The repository was initialized successfully, all files were staged, and the first project commit was created with the message:
+
+"Day 1: Data ingestion complete"
+
+This ensures that the current progress is properly documented and can be tracked throughout the development lifecycle.
+
+ Key Learnings
+
+The first day provided a strong understanding of the overall data ecosystem of the mutual fund industry. I gained practical experience in working with large financial datasets, validating data quality, integrating external APIs, and organizing a data engineering project structure.
+
+I also developed a clear understanding of how different datasets are connected and how they can later be transformed into a relational database and analytical model.
+
+
+
+ Conclusion
+
+Day 1 was completed successfully. All datasets were loaded, validated, and explored. The project environment was configured correctly, live NAV data integration was implemented, and the Git repository was initialized with the first commit.
+
+The data quality assessment showed that the datasets are reliable and suitable for further analysis. With the ingestion phase completed, the project is now ready to move into the next stage, which involves data cleaning, database creation, ETL pipeline development, and star schema implementation.
+
+Overall, the first day established a solid foundation for building the Mutual Fund Analytics Platform.
+
+
+# Data Quality Summary
+
+A comprehensive data quality assessment was performed on all ten datasets to ensure their suitability for further analysis and database integration. The validation process included checking for missing values, duplicate records, datatype consistency, and overall file integrity.
+
+The results indicate that the datasets are highly reliable and well-structured. Out of the 86,493 records processed, no duplicate records were identified across any dataset. All files were successfully loaded without corruption, and the data types were found to be appropriate for their respective columns.
+
+The only issue observed was in the Monthly SIP Inflows dataset, where 12 missing values were present in the Year-over-Year (YoY) Growth Percentage column. Upon examination, these missing values were determined to be expected rather than erroneous, as YoY growth cannot be calculated for the initial months due to the absence of previous-year comparison data.
+
+The Fund Master dataset was found to be complete and contains all necessary scheme-level information, including AMFI codes, fund categories, risk classifications, and fund manager details. Similarly, the NAV History dataset contains a comprehensive collection of historical NAV records without any missing or duplicate values, making it suitable for performance and risk analysis.
+
+The Investor Transactions dataset, which contains over 32,000 records, was also validated successfully and showed no significant quality issues. Portfolio Holdings, Benchmark Indices, AUM, Category Inflows, and Scheme Performance datasets were likewise found to be complete and consistent.
+
+Overall, the data quality can be considered excellent. The datasets are clean, internally consistent, and ready for the next phase of the project, which includes data transformation, ETL pipeline development, database loading, and analytical modeling. The high quality of the available data reduces the need for extensive cleaning and provides confidence in the accuracy of future insights and dashboard outputs.
