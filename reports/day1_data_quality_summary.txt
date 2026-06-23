@@ -4,9 +4,6 @@
 
  Bluestock Fintech Capstone Project
 
-Submitted by: Panala Nagaraju
-Date: 22 June 2026
-
 
 # Introduction
 
