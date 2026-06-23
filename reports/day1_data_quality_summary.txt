@@ -137,16 +137,51 @@ The data quality assessment showed that the datasets are reliable and suitable f
 Overall, the first day established a solid foundation for building the Mutual Fund Analytics Platform.
 
 
-# Data Quality Summary
+# Fund Master Data Quality Summary
 
-A comprehensive data quality assessment was performed on all ten datasets to ensure their suitability for further analysis and database integration. The validation process included checking for missing values, duplicate records, datatype consistency, and overall file integrity.
+As part of the Day 1 data exploration activity, I loaded and analyzed the fund master dataset to understand its structure and the information available for further analysis. The dataset was loaded successfully without any file-reading issues.
 
-The results indicate that the datasets are highly reliable and well-structured. Out of the 86,493 records processed, no duplicate records were identified across any dataset. All files were successfully loaded without corruption, and the data types were found to be appropriate for their respective columns.
+The dataset contains information related to mutual fund schemes, fund houses, and fund categories. During the initial inspection, I explored the available columns and checked the overall quality of the data.
 
-The only issue observed was in the Monthly SIP Inflows dataset, where 12 missing values were present in the Year-over-Year (YoY) Growth Percentage column. Upon examination, these missing values were determined to be expected rather than erroneous, as YoY growth cannot be calculated for the initial months due to the absence of previous-year comparison data.
+The analysis identified 10 unique fund houses in the dataset:
 
-The Fund Master dataset was found to be complete and contains all necessary scheme-level information, including AMFI codes, fund categories, risk classifications, and fund manager details. Similarly, the NAV History dataset contains a comprehensive collection of historical NAV records without any missing or duplicate values, making it suitable for performance and risk analysis.
+* SBI Mutual Fund
+* HDFC Mutual Fund
+* ICICI Prudential MF
+* Nippon India MF
+* Kotak Mahindra MF
+* Axis Mutual Fund
+* Aditya Birla Sun Life MF
+* UTI Mutual Fund
+* Mirae Asset MF
+* DSP Mutual Fund
 
-The Investor Transactions dataset, which contains over 32,000 records, was also validated successfully and showed no significant quality issues. Portfolio Holdings, Benchmark Indices, AUM, Category Inflows, and Scheme Performance datasets were likewise found to be complete and consistent.
+The category analysis showed that the schemes are grouped into two major categories:
 
-Overall, the data quality can be considered excellent. The datasets are clean, internally consistent, and ready for the next phase of the project, which includes data transformation, ETL pipeline development, database loading, and analytical modeling. The high quality of the available data reduces the need for extensive cleaning and provides confidence in the accuracy of future insights and dashboard outputs.
+* Equity
+* Debt
+
+During the analysis, the dataset was loaded successfully and the structure appeared consistent. However, while attempting to explore the sub-category information, the script generated an error because the column named "subcategory" was not present in the dataset. This indicates that the actual column name may be different and needs to be verified before continuing the analysis.
+
+Since the script stopped at the sub-category section, risk-grade information could not be retrieved during this run. This will be analyzed after confirming the correct column names.
+
+Data Quality Observations:
+
+* Dataset loaded successfully without errors.
+* Fund house information is available and complete.
+* Category information is available and contains two categories: Equity and Debt.
+* No file corruption issues were observed.
+* Column naming inconsistency was identified for the sub-category field.
+* Further validation is required for sub-category and risk-grade information.
+
+Overall, the fund master dataset appears well-structured and provides a good overview of the mutual fund landscape. The available data can be used for further analysis once the column naming issue is resolved.
+
+
+Prepared By:
+Panala Nagaraju
+
+Project:
+Mutual Fund Analytics
+
+Activity:
+Fund Master Exploration and Data Quality Assessment
