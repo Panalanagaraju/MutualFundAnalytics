@@ -1,50 +1,41 @@
 import pandas as pd
 import os
 
-RAW_PATH = "data/raw"
+DATA_PATH = "data/raw"
 
-print("\n" + "="*80)
-print("DAY 1 DATA INGESTION")
+csv_files = [f for f in os.listdir(DATA_PATH) if f.endswith(".csv")]
+
 print("="*80)
-
-csv_files = [f for f in os.listdir(RAW_PATH) if f.endswith(".csv")]
-
-summary = []
+print("MUTUAL FUND DATA INGESTION")
+print("="*80)
 
 for file in csv_files:
 
-    filepath = os.path.join(RAW_PATH, file)
+    print(f"\n\nDataset: {file}")
+    print("-"*80)
 
-    print("\n" + "="*80)
-    print(file)
-    print("="*80)
+    filepath = os.path.join(DATA_PATH, file)
 
     try:
         df = pd.read_csv(filepath)
 
-        print("\nShape")
+        print("\nShape:")
         print(df.shape)
 
-        print("\nData Types")
+        print("\nData Types:")
         print(df.dtypes)
 
-        print("\nFirst 5 Rows")
+        print("\nFirst 5 Rows:")
         print(df.head())
 
-        summary.append({
-            "file": file,
-            "rows": df.shape[0],
-            "columns": df.shape[1]
-        })
+        print("\nMissing Values:")
+        print(df.isnull().sum())
+
+        print("\nDuplicate Rows:")
+        print(df.duplicated().sum())
 
     except Exception as e:
-        print(f"Error reading {file}: {e}")
+        print(f"Error reading {file}")
+        print(e)
 
-print("\n")
-print("="*80)
-print("SUMMARY")
-print("="*80)
-
-summary_df = pd.DataFrame(summary)
-
-print(summary_df)
+print("\nData ingestion completed.")
